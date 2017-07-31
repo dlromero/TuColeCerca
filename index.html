@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.csv.js"></script>
+    <script type="text/javascript" src="./js/jquery.csv.min.js"></script>
+    <script type="text/javascript" src="./js/papaparse/papaparse.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="./js/csvjson.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid" style="    background-color: #009688;color: rgba(255,255,255, 0.84);">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color: white;" href="#">Mi Cole Cerca</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 .fill">
+                <div class="panel">
+                    <div class="panel-heading" style="background-color: #009688;color: rgba(255,255,255, 0.84);">
+                        <h3 class="panel-title">Filtros</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+
+                            <br>
+                            <label for="exampleInputPassword1">Dirección</label>
+                            <input type="text" class="form-control" id="address" placeholder="Dirección">
+                            <br>
+                            <div class="divider"></div>
+                            <button onclick="geocodeAddress();" type="button" class="btn  btn-lg btn-block" style="background-color: #009688;color: rgba(255,255,255, 0.84);">Buscar</button>
+                            <br>
+                            <label for="exampleInputPassword1">Ubicación Actual</label>
+                            <img src="https://lh4.ggpht.com/Tr5sntMif9qOPrKV_UVl7K8A_V3xQDgA7Sw_qweLUFlg76d_vGFA7q1xIKZ6IcmeGqg=w300" class="img-responsive"
+                                width="50" height="50">
+                            <br>
+                            <label for="exampleInputPassword1">Colegio mas cercano</label>
+                            <img src="http://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg" class="img-responsive" width="50" height="50">
+
+                            <br>
+                            <label for="exampleInputPassword1">Colegios Encontrados</label>
+                            <img src="http://www.clker.com/cliparts/b/7/6/5/1308001441853739087google%20maps%20pin.svg" class="img-responsive" width="50"
+                                height="50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" style="height: 510px;">
+                <div class="panel" style="height: 550px;">
+                    <div class="panel-heading" style="background-color: #009688;color: rgba(255,255,255, 0.84);">
+                        <h4 class="panel-title">Mapa</h4>
+                    </div>
+                    <div class="panel-body" style="height: 500px;">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyBTnYJ15mpX6r5PLmqI7_3zgMeY0FSVO7Q&libraries=geometry"
+    async defer></script>
+
+</html>
