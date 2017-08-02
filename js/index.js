@@ -3,6 +3,8 @@
 var map;
 var markers = [];
 var originGoogleMaps;
+
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 4.5793682, lng: -74.136635 },
@@ -150,4 +152,18 @@ function geocodeAddress() {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+}
+
+function RefreshMap() {
+    $('#menu1').css({ 'height': ($(window).height()-265) + 'px' });
+    $('#filters').collapse();
+    setTimeout(function () {
+        zoom = map.getZoom();
+        center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setZoom(zoom);
+        map.setCenter(center);
+
+        google.maps.event.trigger(map, 'resize');
+    }, 200);
 }

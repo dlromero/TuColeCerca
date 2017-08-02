@@ -43,8 +43,8 @@
     <div class="container-fluid">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
             <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="collapse" data-target="#filters"><span aria-hidden="true">&#8208;</span></button>
+                <div class="panel-heading" data-toggle="collapse" data-target="#filters">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#8208;</span></button>
                     <h3 class="panel-title">Filtros</h3>                    
                 </div>
                 <div class="panel-body collapse in" id="filters">
@@ -88,7 +88,7 @@
 
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">Información</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Mapa</a></li>
+                        <li><a data-toggle="tab" href="#menu1" on-tap="RefreshMap()" onresize="RefreshMap()" onclick="RefreshMap()">Mapa</a></li>
                     </ul>
 
                     <div class="tab-content">
