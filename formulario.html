@@ -1,0 +1,145 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Tu Cole Cerca</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TuColeCerca</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right" role="form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Sign in</button>
+                    </form>
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Tu Cole Cerca</h1>
+                <div class="container">
+                    <!-- Example row of columns -->
+                    <div class="row">
+                        <select multiple id="zona">
+                            <option value="URBANA">URBANA</option>
+                            <option value="RURAL">RURAL</option>
+                        </select>
+                        <select multiple id="niveles">
+                            <option value="PREESCOLAR">PREESCOLAR</option>
+                            <option value="BÁSICA SECUNDARIA">BÁSICA SECUNDARIA</option>
+                            <option value="BÁSICA PRIMARIA">BÁSICA PRIMARIA</option>
+                            <option value="MEDIA">MEDIA</option>
+                            <option value="PRIMERA INFANCIA">PRIMERA INFANCIA</option>
+                        </select> 
+                        <select id="grados">
+                            <option value="-2">-2</option>
+                            <option value="-1">-1</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="11">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="99">99</option>
+                        </select>
+                        <select id="jornadas">
+                            <option value="MAÑANA">MAÑANA</option>
+                            <option value="TARDE">TARDE</option>
+                            <option value="FIN DE SEMANA">FIN DE SEMANA</option>
+                            <option value="COMPLETA">COMPLETA</option>
+                            <option value="NOCTURNA">NOCTURNA</option>
+                            <option value="ÚNICA">ÚNICA</option>
+                        </select> 
+                        <select id="especialidades">
+                            <option value="ACADÉMICA">ACADÉMICA</option>
+                            <option value="COMERCIAL">COMERCIAL</option>
+                            <option value="OTRO">OTRO</option>
+                            <option value="PEDAGOGICO">PEDAGOGICO</option>
+                        </select>   
+                        <select id="modelos_educativos">
+                            <option value="EDUCACIÓN TRADICIONAL">EDUCACIÓN TRADICIONAL</option>
+                            <option value="ACELERACIÓN DEL APRENDIZAJE">ACELERACIÓN DEL APRENDIZAJE</option>
+                            <option value="PREESCOLAR ESCOLARIZADO_">PREESCOLAR ESCOLARIZADO</option>
+                            <option value="PROGRAMA PARA JÓVENES EN EXTRAEDAD Y ADULTOS">PROGRAMA PARA JÓVENES EN EXTRAEDAD Y ADULTOS</option>
+                            <option value="ESPERE">ESPERE</option>
+                            <option value="SER">SER</option>
+                        </select>  
+                        <select id="tipos_establecimientos">
+                            <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
+                            <option value="INSTITUCION EDUCATIVA">INSTITUCION EDUCATIVA</option>
+                        </select> 
+                        <button id="" class="btn btn-primary col-sm-150 col-sm-150" title="Buscar" 
+                                ng-disabled="dbDisabled" ng-click="fnClickAu()" onclick="Buscar()" type="submit" size="xl" 
+                                type-button="primary" icon="search" label="Buscar" fn-click="Buscar()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar
+                        </button>
+                    </div>
+                    <hr>
+                </div> 
+                <div class="container" id="listadocolegios">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <footer>
+                <p>&copy; Los Fricaces 2017</p>
+            </footer>
+        </div> <!-- /container -->        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/tu-cole-cerca.js"></script>
+    </body>
+</html>
