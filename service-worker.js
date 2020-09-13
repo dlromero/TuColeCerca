@@ -1,7 +1,7 @@
 var cacheName = 'Niko-2';
 var dataCacheName = 'weatherData-v1';
 var filesToCache = [
-    '/offline.html',
+    '/index.html',
 ];
 
 self.addEventListener('install', function(e) {
