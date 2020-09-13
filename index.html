@@ -335,6 +335,16 @@
     <script src="js/sb-admin.min.js"></script>
     <script src="js/index.1.js?v=1.0.0.1"></script>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('js/serviceworker.js').then(function(registration) {
+                console.log('Service worker registered successfully', registration);
+            }).catch(function(err) {
+                console.log('Service worker registration failed: ', err);
+            });
+        };
+    </script>
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUUn0iLoYA16qVK-7PTB5FDlAgW1yYX6w&libraries=visualization&callback=initMap">
     </script>
 
