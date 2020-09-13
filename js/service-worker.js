@@ -21,7 +21,7 @@
 const CACHE_NAME = 'static-cache-v1';
 
 // CODELAB: Add list of files to cache here.
-const FILES_TO_CACHE = ['index.html', 'js/index.1.js'];
+const FILES_TO_CACHE = ['index.html'];
 
 self.addEventListener('install', (evt) => {
     caches.open(CACHE_NAME).then((cache) => {
