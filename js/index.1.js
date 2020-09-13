@@ -1,6 +1,16 @@
-
-
 var map, heatmap;
+
+// CODELAB: Register service worker.
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then((reg) => {
+                console.log('Service worker registered.', reg);
+            });
+    });
+}
+
+
 function initMap() {
     var heatMapData = [
         { location: new google.maps.LatLng(4.719109, -74.031375), weight: 1 },
@@ -135,7 +145,7 @@ function initMap() {
 function RefreshMap() {
     $('#menu1').css({ 'height': ($(window).height() - 265) + 'px' });
     $('#filters').hide();
-    setTimeout(function () {
+    setTimeout(function() {
         zoom = map.getZoom();
         center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
@@ -214,11 +224,11 @@ function Search() {
     }
 
 
-    url = 'https://www.datos.gov.co/resource/xax6-k7eu.json?'
-        + query + zona + nivel + grado + jornada + especialidad + modelos_educativos
-        + '&$$app_token=K48oToivS8HmR2UDvdG3yrmeJ';
+    url = 'https://www.datos.gov.co/resource/xax6-k7eu.json?' +
+        query + zona + nivel + grado + jornada + especialidad + modelos_educativos +
+        '&$$app_token=K48oToivS8HmR2UDvdG3yrmeJ';
 
-    $.getJSON(url, function (data, textstatus) {
+    $.getJSON(url, function(data, textstatus) {
 
         if (data.length == 0) {
             $("#NotFound").html(`<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
@@ -244,7 +254,7 @@ function Search() {
 
             var cards = '';
 
-            $.each(data, function (i, entry) {
+            $.each(data, function(i, entry) {
 
 
                 cards = cards + `<div class="card mb-3">
@@ -325,7 +335,7 @@ function ChangeTab(address, schoolName) {
     var geocoder = new google.maps.Geocoder();
 
 
-    geocoder.geocode({ 'address': address }, function (results, status) {
+    geocoder.geocode({ 'address': address }, function(results, status) {
         if (status === 'OK') {
 
             originGoogleMaps = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
@@ -337,7 +347,7 @@ function ChangeTab(address, schoolName) {
             var infowindow = new google.maps.InfoWindow({
                 content: `<h4>${schoolName}</h4>`
             });
-            marker.addListener('click', function () {
+            marker.addListener('click', function() {
                 infowindow.open(map, marker);
             });
             infowindow.open(map, marker);
@@ -383,7 +393,7 @@ function showMap() {
     $("#ResultMenu").removeClass("active");
     $("#FilterMenu").removeClass("active");
 
-    setTimeout(function () {
+    setTimeout(function() {
         zoom = map.getZoom();
         center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
@@ -393,4 +403,3 @@ function showMap() {
         google.maps.event.trigger(map, 'resize');
     }, 200);
 }
-
