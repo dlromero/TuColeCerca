@@ -1,16 +1,5 @@
 var map, heatmap;
 
-// CODELAB: Register service worker.
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('js/service-worker.js')
-            .then((reg) => {
-                console.log('Service worker registered.', reg);
-            });
-    });
-}
-
-
 function initMap() {
     var heatMapData = [
         { location: new google.maps.LatLng(4.719109, -74.031375), weight: 1 },
