@@ -1,6 +1,6 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-    'index.html'
+    '/TuColeCerca'
 ];
 
 self.addEventListener('install', function(event) {
