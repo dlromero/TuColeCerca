@@ -247,10 +247,15 @@ function Search() {
 
 
                 cards = cards + `<div class="card mb-3">
-                            <a href="#">
-                                <img class="card-img-top img-fluid w-100" src="http://www.agustinosrecoletos.com.co/images/colegios/Norte/colegio_agustiniano_norte_3.jpg" alt="">
-                            </a>
+                            
                             <div class="card-body">
+                              
+                                <h6 class="" style"">
+                                   
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="custom-control-label" for="defaultUnchecked">Comparar</label>
+                               </h6>
+
                                 <h6 class="card-title mb-1">
                                     <a href="#">${entry.nombreestablecimiento}</a>
                                 </h6>
