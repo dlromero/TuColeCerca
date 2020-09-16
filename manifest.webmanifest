@@ -10,7 +10,6 @@
     "theme_color": "#3367D6",
 
 
-
     "icons": [{
             "src": "img/appleicon.png",
             "type": "image/png",
@@ -21,7 +20,15 @@
             "type": "image/png",
             "sizes": "512x512"
         }
+    ],
+
+    "shortcuts": [{
+            "name": "Colegios Bogotá",
+            "short_name": "Colegios",
+            "description": "Busque los colegios en  bogota",
+
+            "icons": [{ "src": "img/appleicon.png", "sizes": "192x192" }]
+        }
+
     ]
-
-
 }
