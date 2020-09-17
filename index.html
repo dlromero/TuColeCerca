@@ -64,7 +64,7 @@
                     <a class="nav-link" href="javascript:void(0)">
                         <i class="fa fa-fw fa-address-card-o"></i>
                         <span class="nav-link-text">
-                            Resultados</span>
+                            Resultados </span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Map" id="MapMenu" onclick="showMap()">
@@ -72,6 +72,13 @@
                         <i class="fa fa-fw fa-map"></i>
                         <span class="nav-link-text">
                         Mapa</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Results" id="CompareMenu" onclick="showResults()">
+                    <a class="nav-link" href="javascript:void(0)">
+                        <i class="fa fa-fw fa-address-card-o"></i>
+                        <span class="nav-link-text">
+                            Comparación </span>
                     </a>
                 </li>
 
@@ -295,6 +302,13 @@
 
             <div class="row" id="MapContent" style="display: none">
                 <div id="map" style="width:100%;height:30em;"></div>
+            </div>
+
+            <div class="row" id="ComparerDiv" style="display: none">
+                <div id="map" style="width:100%;height:30em;">
+                    <h1>Oscar...</h1>
+                    <h1>Sin Resultados...</h1>
+                </div>
             </div>
         </div>
         <!-- /.container-fluid -->

@@ -150,7 +150,54 @@ function ToggleFilters() {
     $('#filters').toggle();
 }
 
+function CheckFunction() {
+    //var checkBox = document.getElementById("myCheck");
+    let valoresCheck = [];
 
+    $("input[type=checkbox]:checked").each(function() {
+        valoresCheck.push(this.value);
+        if (valoresCheck.length >= 3) {
+            alert("This is alert box!");
+        }
+    });
+}
+
+function CheckFunction() {
+    //var checkBox = document.getElementById("myCheck");
+    let valoresCheck = [];
+    var idChekbox = $("input[type=checkbox]:checked");
+
+    $("input[type=checkbox]:checked").each(function() {
+        valoresCheck.push(this.value);
+        if (idChekbox.length >= 3) {
+
+            $("#ResultMenu").removeClass("active");
+
+            $("#FilterMenu").removeClass("active");
+            $("#MapMenu").removeClass("active");
+            $("#CompareMenu").addClass("active");
+
+
+            $("#MapContent").hide();
+            $("#Results").hide();
+            $('#Filters').hide();
+            $('#ComparerDiv').show();
+
+            for (i = 0; i < idChekbox.length; i++) {
+                var op = idChekbox[i].id;
+
+
+            }
+
+
+
+
+
+
+
+        }
+    });
+}
 
 
 function Search() {
@@ -235,7 +282,8 @@ function Search() {
                             <div class="alert alert-info" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                             <span class="sr-only">Información de busqueda:</span>
-                            Se encontraron ${data.length} registros
+                            Se encontraron ${data.length} registros -->
+                            Puedes seleccionar tres colegios para realizar la comparación
                             </div>
                          </div>`;
 
@@ -246,14 +294,14 @@ function Search() {
             $.each(data, function(i, entry) {
 
 
-                cards = cards + `<div class="card mb-3">
+                cards = cards + `<div class="card mb-3" id="InfoAll">
                             
                             <div class="card-body">
                               
                                 <h6 class="" style"">
                                    
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="custom-control-label" for="defaultUnchecked">Comparar</label>
+                                    <input type="checkbox" onclick="CheckFunction()" class="form-check-input" id="exampleCheck1">
+                                    <label class="custom-control-label" for="defaultUnchecked"> Elegir este colegio para comparar</label>
                                </h6>
 
                                 <h6 class="card-title mb-1">
