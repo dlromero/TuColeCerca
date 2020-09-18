@@ -91,43 +91,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-star"></i>
-                        <span class="d-lg-none">Favoritos
-                <span class="badge badge-pill badge-primary">12 New</span>
-                        </span>
-                        <span class="new-indicator text-primary d-none d-lg-block">
-                <i class="fa fa-fw fa-circle"></i>
-                <span class="number">12</span>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                        <h6 class="dropdown-header">Colegios favoritos:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>Colegio Restrepo millan</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Calle 15 #12-29</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>Colegio frances</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Se destaca por la enseñanza de 3 idiomas</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>Colegio nuestra señora del rosario</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Colegio destacado por las pruebas Icfes</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">
-                View all messages
-              </a>
-                    </div>
-                </li>
+
 
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0 mr-lg-2">
@@ -141,11 +105,7 @@
                         </div>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fa fa-fw fa-sign-out"></i> Ingresar
-                    </a>
-                </li>
+
             </ul>
         </div>
     </nav>
@@ -305,9 +265,26 @@
             </div>
 
             <div class="row" id="ComparerDiv" style="display: none">
-                <div id="map" style="width:100%;height:30em;">
-                    <h1>Oscar...</h1>
-                    <h1>Sin Resultados...</h1>
+                <div id="">
+                    Por favor ingrese su direccion para realizar un algortimo basado en distancia idiomas y capacidades espciales el cual le llegara a su correo.
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Dirección" value=""> Dirección
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Correo">Correo
+                    </div>
+
+                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar por...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            </span>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

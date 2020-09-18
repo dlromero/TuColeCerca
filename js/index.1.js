@@ -162,6 +162,74 @@ function CheckFunction() {
     });
 }
 
+function printInfo(url) {
+    $.getJSON(url, function(data, textstatus) {
+        var cards = '';
+        var inicialID = 1;
+
+        var opt = data;
+        var iii = opt.nombreestablecimiento;
+
+        $.each(data, function(i, entry) {
+            cards = cards + `<div class="card mb-3" id="InfoAllOnlyu" >
+                                    
+                    <div class="card-body">                               
+                        <h6 class="card-title mb-1">
+                            <a href="#">${entry.nombreestablecimiento}</a>
+                        </h6>
+                        <p class="card-text small">${ entry.direccion}                                
+                        </p>
+                        <p class="card-text small">
+                            Zona: 
+                            ${ entry.zona}                                
+                        </p>
+                        <p class="card-text small">
+                            Jornada: 
+                            ${ entry.jornada}                                
+                        </p>
+                        <p class="card-text small">
+                            Grados: 
+                            ${ entry.grados}                                
+                        </p>
+                        <p class="card-text small">
+                            Especialidad: 
+                            ${ entry.especialidad}                                
+                        </p>
+                        <p class="card-text small">
+                            Modelos Educativos: 
+                            ${ entry.modelos_educativos}                                
+                        </p>
+
+
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body py-2 small">
+                        
+                        
+                        <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${ entry.direccion} Bogotá', '${entry.nombreestablecimiento}')">
+                            <i class="fa fa-fw fa-map"></i>
+                            Mapa
+                        </a>                       
+
+                        
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Ultima actualización hace 2 meses
+                    </div>
+                </div>`;
+        });
+
+        inicialID++;
+
+        $('#ComparerDiv').append(cards);
+
+
+
+
+    });
+}
+
+
 function CheckFunction() {
     //var checkBox = document.getElementById("myCheck");
     let valoresCheck = [];
@@ -184,21 +252,45 @@ function CheckFunction() {
             $('#ComparerDiv').show();
 
             for (i = 0; i < idChekbox.length; i++) {
-                var op = idChekbox[i].id;
+                var noame = idChekbox[i].id;
+                var cards = '';
+                var query = 'nombreestablecimiento=' + noame;
 
+                url = 'https://www.datos.gov.co/resource/xax6-k7eu.json?' +
+                    query + '&$$app_token=K48oToivS8HmR2UDvdG3yrmeJ';
+
+                printInfo(url);
 
             }
-
-
-
-
-
-
-
         }
+
+        sendMail();
+
     });
 }
 
+function sendMail() {
+    $.ajax({
+        type: 'POST',
+        url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+        data: {
+            'key': 'YOUR API KEY HERE',
+            'message': {
+                'from_email': 'YOUR@EMAIL.HERE',
+                'to': [{
+                    'email': 'almenfis_1717@EMAIL.HERE',
+                    'name': 'RECIPIENT NAME (OPTIONAL)',
+                    'type': 'to'
+                }],
+                'autotext': 'true',
+                'subject': 'YOUR SUBJECT HERE!',
+                'html': 'YOUR EMAIL CONTENT HERE! YOU CAN USE HTML!'
+            }
+        }
+    }).done(function(response) {
+        console.log(response); // if you're into that sorta thing
+    });
+}
 
 function Search() {
 
@@ -298,9 +390,9 @@ function Search() {
                             
                             <div class="card-body">
                               
-                                <h6 class="" style"">
+                                <h6 class="" >
                                    
-                                    <input type="checkbox" onclick="CheckFunction()" class="form-check-input" id="exampleCheck1">
+                                    <input type="checkbox" onclick="CheckFunction()" class="form-check-input" id="${entry.nombreestablecimiento}">
                                     <label class="custom-control-label" for="defaultUnchecked"> Elegir este colegio para comparar</label>
                                </h6>
 
