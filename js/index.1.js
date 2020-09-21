@@ -189,7 +189,7 @@ function PrintInfo(url) {
                     <div class="card-body py-2 small">
                         
                         
-                        <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion} Bogotá', '${entry.nombreestablecimiento}')">
+                        <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion}', '${entry.nombreestablecimiento}')">
                             <i class="fa fa-fw fa-map"></i>
                             Mapa
                         </a>                       
@@ -411,7 +411,7 @@ function Search() {
                                     <i class="fa fa-fw fa-comment"></i>
                                     Comentar
                                 </a>
-                                <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion} Bogotá', '${entry.nombreestablecimiento}')">
+                                <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion}', '${entry.nombreestablecimiento}')">
                                     <i class="fa fa-fw fa-map"></i>
                                     Mapa
                                 </a>
@@ -441,37 +441,39 @@ function Search() {
 
 function ChangeTab(address, schoolName) {
     showMap();
-    document.getElementById('loader').style.display = 'block';
-    var geocoder = new google.maps.Geocoder();
+    console.log(address);
+    SetDireccion(address);
+    // document.getElementById('loader').style.display = 'block';
+    // var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ address: address }, function(results, status) {
-        if (status === 'OK') {
-            originGoogleMaps = new google.maps.LatLng(
-                results[0].geometry.location.lat(),
-                results[0].geometry.location.lng()
-            );
-            var marker = new google.maps.Marker({
-                position: originGoogleMaps,
-                map: map,
-                title: schoolName,
-            });
-            var infowindow = new google.maps.InfoWindow({
-                content: `<h4>${schoolName}</h4>`,
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-            });
-            infowindow.open(map, marker);
-            var latLng = marker.getPosition(); // returns LatLng object
-            map.setCenter(latLng); // setCenter takes a LatLng object
-        } else {
-            console.log(
-                'Geocode was not successful for the following reason: ' + status
-            );
-        }
+    // geocoder.geocode({ address: address }, function(results, status) {
+    //     if (status === 'OK') {
+    //         originGoogleMaps = new google.maps.LatLng(
+    //             results[0].geometry.location.lat(),
+    //             results[0].geometry.location.lng()
+    //         );
+    //         var marker = new google.maps.Marker({
+    //             position: originGoogleMaps,
+    //             map: map,
+    //             title: schoolName,
+    //         });
+    //         var infowindow = new google.maps.InfoWindow({
+    //             content: `<h4>${schoolName}</h4>`,
+    //         });
+    //         marker.addListener('click', function() {
+    //             infowindow.open(map, marker);
+    //         });
+    //         infowindow.open(map, marker);
+    //         var latLng = marker.getPosition(); // returns LatLng object
+    //         map.setCenter(latLng); // setCenter takes a LatLng object
+    //     } else {
+    //         console.log(
+    //             'Geocode was not successful for the following reason: ' + status
+    //         );
+    //     }
 
-        document.getElementById('loader').style.display = 'none';
-    });
+    //     document.getElementById('loader').style.display = 'none';
+    // });
 }
 
 function showFilter() {
@@ -494,16 +496,9 @@ function showResults() {
     $('#MapMenu').removeClass('active');
 }
 
-function SetDireccion() {
-    //var sydney = new google.maps.LatLng(-33.867, 151.195);
-
-    // infowindow = new google.maps.InfoWindow();
-
-    // map = new google.maps.Map(
-    //     document.getElementById('map'), { center: sydney, zoom: 15 });
-
+function SetDireccion(address) {
     var request = {
-        query: 'CL 71 C 51 31 bogota',
+        query: address,
         fields: ['name', 'geometry'],
     };
 
