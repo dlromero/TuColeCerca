@@ -197,7 +197,7 @@ function PrintInfo(url) {
                         
                     </div>
                     <div class="card-footer small text-muted">
-                        Ultima actualización hace 2 meses
+                        Ultima actualización hace 4 meses
                     </div>
                 </div>`;
         });
