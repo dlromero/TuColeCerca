@@ -1,5 +1,7 @@
 var map, heatmap;
 
+var divResult = "";
+
 function initMap() {
     var heatMapData = [
         { location: new google.maps.LatLng(4.719109, -74.031375), weight: 1 },
@@ -203,6 +205,9 @@ function PrintInfo(url) {
         });
 
         $('#ComparerDiv').append(cards);
+        divResult = divResult + cards;
+
+
     });
 }
 
@@ -215,6 +220,7 @@ function CheckFunction() {
             var url = createAPIUrl(idColegio);
             PrintInfo(url);
             index++;
+            // generatePDF('barco');
         }
 
         // sendMail();
@@ -403,24 +409,12 @@ function Search() {
                             </div>
                             <hr class="my-0">
                             <div class="card-body py-2 small">
-                                <a class="mr-3 d-inline-block" href="#">
-                                    <i class="fa fa-fw fa-thumbs-up"></i>
-                                    Me gusta
-                                </a>
-                                <a class="mr-3 d-inline-block" href="#">
-                                    <i class="fa fa-fw fa-comment"></i>
-                                    Comentar
-                                </a>
+                                
                                 <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion}', '${entry.nombreestablecimiento}')">
                                     <i class="fa fa-fw fa-map"></i>
                                     Mapa
                                 </a>
-                                
-
-                                <a class="d-inline-block" href="#">
-                                    <i class="fa fa-fw fa-share"></i>
-                                    Compartir
-                                </a>
+                               
                             </div>
                             <div class="card-footer small text-muted">
                                 Ultima actualización hace 2 meses
@@ -443,37 +437,7 @@ function ChangeTab(address, schoolName) {
     showMap();
     console.log(address);
     SetDireccion(address);
-    // document.getElementById('loader').style.display = 'block';
-    // var geocoder = new google.maps.Geocoder();
 
-    // geocoder.geocode({ address: address }, function(results, status) {
-    //     if (status === 'OK') {
-    //         originGoogleMaps = new google.maps.LatLng(
-    //             results[0].geometry.location.lat(),
-    //             results[0].geometry.location.lng()
-    //         );
-    //         var marker = new google.maps.Marker({
-    //             position: originGoogleMaps,
-    //             map: map,
-    //             title: schoolName,
-    //         });
-    //         var infowindow = new google.maps.InfoWindow({
-    //             content: `<h4>${schoolName}</h4>`,
-    //         });
-    //         marker.addListener('click', function() {
-    //             infowindow.open(map, marker);
-    //         });
-    //         infowindow.open(map, marker);
-    //         var latLng = marker.getPosition(); // returns LatLng object
-    //         map.setCenter(latLng); // setCenter takes a LatLng object
-    //     } else {
-    //         console.log(
-    //             'Geocode was not successful for the following reason: ' + status
-    //         );
-    //     }
-
-    //     document.getElementById('loader').style.display = 'none';
-    // });
 }
 
 function showFilter() {
@@ -494,9 +458,11 @@ function showResults() {
     $('#ResultMenu').addClass('active');
     $('#FilterMenu').removeClass('active');
     $('#MapMenu').removeClass('active');
+
 }
 
 function SetDireccion(address) {
+
     var request = {
         query: address,
         fields: ['name', 'geometry'],
@@ -514,6 +480,78 @@ function SetDireccion(address) {
             map.setCenter(results[0].geometry.location);
         }
     });
+}
+
+function generatePDF(fileName) {
+
+
+    $('#content').append(divResult);
+
+
+    var doc = new jsPDF();
+    doc.fromHTML($('body').get(0), 15, 15, {
+        'width': 170
+    });
+    console.log(doc);
+    demoFromHTML();
+
+
+
+
+}
+
+
+function demoFromHTML() {
+    var pdf = new jsPDF('p', 'pt', 'letter');
+    // source can be HTML-formatted string, or a reference
+    // to an actual DOM element from which the text will be scraped.
+    source = $('#content')[0];
+
+    // we support special element handlers. Register them with jQuery-style 
+    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+    // There is no support for any other type of selectors 
+    // (class, of compound) at this time.
+    specialElementHandlers = {
+        // element with id of "bypass" - jQuery style selector
+        '#bypassme': function(element, renderer) {
+            // true = "handled elsewhere, bypass text extraction"
+            return true
+        }
+    };
+    margins = {
+        top: 80,
+        bottom: 60,
+        left: 40,
+        width: 522
+    };
+    // all coords and widths are in jsPDF instance's declared units
+    // 'inches' in this case
+    pdf.fromHTML(
+        source, // HTML string or DOM elem ref.
+        margins.left, // x coord
+        margins.top, { // y coord
+            'width': margins.width, // max width of content on PDF
+            'elementHandlers': specialElementHandlers
+        },
+
+        function(dispose) {
+            // dispose: object with X, Y of the last line add to the PDF 
+            //          this allow the insertion of new lines after html
+            pdf.save('ColegiosBogota.pdf');
+        }, margins
+    );
+    $('#content').hide();
+    return pdf;
+
+
+    var pdfs = new jsPDF('p', 'pt', 'letter');
+    pdfs.canvas.height = 72 * 11;
+    pdfs.canvas.width = 72 * 8.5;
+
+    pdfs.fromHTML(document.body);
+
+    pdfs.save('test.pdf');
+
 }
 
 function createMarker(places) {
