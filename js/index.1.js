@@ -1,4 +1,5 @@
 var map, heatmap;
+let markers = [];
 
 var divResult = "";
 
@@ -149,11 +150,20 @@ function ToggleFilters() {
     $('#filters').toggle();
 }
 
+
+
 function PrintInfo(url) {
     $.getJSON(url, function(data, textstatus) {
         var cards = '';
 
         $.each(data, function(i, entry) {
+
+            if (entry.idiomas === undefined) { entry.idiomas = 'No aplica' }
+            if (entry.estrato_socio_economico === undefined) { entry.estrato_socio_economico = 'No aplica' }
+            if (entry.especialidad === undefined) { entry.especialidad = 'No aplica' }
+            if (entry.modelos_educativos === undefined) { entry.modelos_educativos = 'No aplica' }
+            if (entry.discapacidades === undefined) { entry.discapacidades = 'No aplica' }
+            if (entry.modelos_educativos === undefined) { entry.modelos_educativos = 'No aplica' }
             cards =
                 cards +
                 `<div class="card mb-3" id="InfoAllOnlyu" >
@@ -181,8 +191,20 @@ function PrintInfo(url) {
                             ${entry.especialidad}                                
                         </p>
                         <p class="card-text small">
+                          Discapacidades: 
+                            ${entry.discapacidades}                                
+                        </p>
+                        <p class="card-text small">
                             Modelos Educativos: 
                             ${entry.modelos_educativos}                                
+                        </p>
+                        <p class="card-text small">
+                            Idiomas: 
+                            ${entry.idiomas}                                
+                        </p>
+                        <p class="card-text small">
+                            Modelos Estrato socioeconómico : 
+                            ${entry.estrato_socio_economico}                                
                         </p>
 
 
@@ -191,7 +213,7 @@ function PrintInfo(url) {
                     <div class="card-body py-2 small">
                         
                         
-                        <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTab('${entry.direccion}', '${entry.nombreestablecimiento}')">
+                        <a class="mr-3 d-inline-block" href="javascript:void(0)" onclick="ChangeTabCompartationMAP('${entry.direccion}', '${entry.nombreestablecimiento}')">
                             <i class="fa fa-fw fa-map"></i>
                             Mapa
                         </a>                       
@@ -216,6 +238,7 @@ function CheckFunction() {
     $('input[type=checkbox]:checked').each(function() {
         if ($('input[type=checkbox]:checked').length >= 3) {
             focusResultMenu();
+            clearMarkers();
             var idColegio = $('input[type=checkbox]:checked')[index].id;
             var url = createAPIUrl(idColegio);
             PrintInfo(url);
@@ -275,6 +298,7 @@ function sendMail() {
 }
 
 function Search() {
+    clearMarkers()
     $('#Filters').hide();
     document.getElementById('loader').style.display = 'block';
 
@@ -284,6 +308,7 @@ function Search() {
     grado = document.getElementById('grade').value;
     especialidad = document.getElementById('Specialties').value;
     modelos_educativos = document.getElementById('EducationalModel').value;
+    discapacidades = document.getElementById('discapacity').value;
 
     var isFalseZona = zona == 'false';
     var isFalseNivel = nivel == 'false';
@@ -291,12 +316,19 @@ function Search() {
     var isFalseGrado = grado == 'false';
     var isFalseEspecialidad = especialidad == 'false';
     var isFalseModelos_educativos = modelos_educativos == 'false';
+    var isFalseDiscapacity = discapacidades == 'false';
 
     query = "$query=select * where codigodepartamento = '11' ";
     if (!isFalseZona) {
         zona = " and zona='" + zona + "'";
     } else {
         zona = '';
+    }
+
+    if (!isFalseDiscapacity) {
+        discapacidades = " and discapacidades like '%25" + discapacidades + "%25'";
+    } else {
+        discapacidades = '';
     }
 
     if (!isFalseNivel) {
@@ -337,6 +369,7 @@ function Search() {
         nivel +
         grado +
         jornada +
+        discapacidades +
         especialidad +
         modelos_educativos +
         '&$$app_token=K48oToivS8HmR2UDvdG3yrmeJ';
@@ -367,6 +400,12 @@ function Search() {
             var cards = '';
 
             $.each(data, function(i, entry) {
+                if (entry.idiomas === undefined) { entry.idiomas = 'No aplica' }
+                if (entry.estrato_socio_economico === undefined) { entry.estrato_socio_economico = 'No aplica' }
+                if (entry.especialidad === undefined) { entry.especialidad = 'No aplica' }
+                if (entry.modelos_educativos === undefined) { entry.modelos_educativos = 'No aplica' }
+                if (entry.discapacidades === undefined) { entry.discapacidades = 'No aplica' }
+                if (entry.modelos_educativos === undefined) { entry.modelos_educativos = 'No aplica' }
                 cards =
                     cards +
                     `<div class="card mb-3" id="InfoAll">
@@ -395,6 +434,10 @@ function Search() {
                                 <p class="card-text small">
                                     Grados: 
                                     ${entry.grados}                                
+                                </p>
+                                <p class="card-text small">
+                                    Discapacidades: 
+                                    ${entry.discapacidades}                                
                                 </p>
                                 <p class="card-text small">
                                     Especialidad: 
@@ -436,7 +479,15 @@ function Search() {
 function ChangeTab(address, schoolName) {
     showMap();
     console.log(address);
-    SetDireccion(address);
+    SetDireccion(address, schoolName);
+
+}
+
+function ChangeTabCompartationMAP(address, schoolName) {
+    showMap();
+    console.log(address);
+    SetDireccion(address, schoolName);
+    SetDireccionUser();
 
 }
 
@@ -461,8 +512,30 @@ function showResults() {
 
 }
 
-function SetDireccion(address) {
+function SetDireccion(address, schoolName) {
 
+    var request = {
+        query: address,
+        fields: ['name', 'geometry'],
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+
+    service.findPlaceFromQuery(request, function(results, status) {
+        console.log(results);
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                console.log(results[i]);
+                createMarker(results[i], schoolName);
+            }
+            map.setCenter(results[0].geometry.location);
+        }
+    });
+}
+
+function SetDireccionUser() {
+
+    address = document.getElementById('addressUser').value;
     var request = {
         query: address,
         fields: ['name', 'geometry'],
@@ -554,12 +627,37 @@ function demoFromHTML() {
 
 }
 
-function createMarker(places) {
-    var marker = new google.maps.Marker({
+
+
+function createMarker(places, name) {
+    var markerPlace = new google.maps.Marker({
         map: map,
         title: places.name,
+        label: name,
         position: places.geometry.location,
     });
+    markers.push(markerPlace)
+}
+
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+}
+
+function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
 }
 
 function showMap() {
